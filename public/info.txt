@@ -1,0 +1,7 @@
+Данная папка статическая и:
+1) Её нужно указать в файле "index.js":
+app.use(express.static('public'));
+2) Использовать в любом другом файле(Например - head.hbs):
+    <link rel="stylesheet" href="/index.css">
+
+После этого файл head.hbs пере

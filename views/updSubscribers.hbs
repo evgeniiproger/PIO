@@ -1,0 +1,158 @@
+{{!-- <h1>Добро пожаловать</h1> --}}
+
+<p>Тут можно обновить подписчиков</p>
+
+
+
+<form action='/updSubscribers' method='POST' novalidate>
+    <div class='input-field'>
+        <input
+        id='codeSub'
+        name='codeSub'
+        type='text'
+        class='validate'
+        'required'
+        />
+        <label for='codeSub'>Вставте HTML</label>
+        <span class='helper-text' data-error='Введите название'></span>
+    </div>
+    <input type='hidden' name='_csrf' value='{{csrf}}' />
+    <button class='btn btn-primary'>Обновить подписчиков</button>
+</form>
+
+
+<br>
+
+{{#if changes.length}}
+<h4>Список изменений ваших подписчиков:</h4>
+{{#each changes}}
+<ul class="collapsible">
+  <li>
+    <div class="collapsible-header">
+      {{!-- {{ @index }})  --}}
+      <span class="date">  {{date}} </span> &nbsp; Добавлено:{{subscriberschanges.added.length}} Удалено:{{subscriberschanges.removed.length}} Изменили логин:{{subscriberschanges.loginSubChanged.length}} Изменили имя:{{subscriberschanges.nameSubChanged.length}}
+    </div>
+    <div class="collapsible-body">
+      {{#if subscriberschanges.nameSubChanged.length}}
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header">
+            Поменявшие имя (всего:{{subscriberschanges.nameSubChanged.length}})
+          </div>
+          <div class="collapsible-body">
+            <table>
+              <thead>
+                <tr>
+                  <th>Логин</th>
+                  <th>Было имя</th>
+                  <th>Стало имя</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {{#each subscriberschanges.nameSubChanged}}
+                <tr>
+                  <th>{{loginSub}}</th>
+                  <th>{{oldNameSub}}</th>
+                  <th>{{newNameSub}}</th>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ul>
+      {{/if}} 
+
+      {{#if subscriberschanges.loginSubChanged.length}}
+       <ul class="collapsible">
+        <li>
+          <div class="collapsible-header">
+        Поменявшие логин (всего:{{subscriberschanges.loginSubChanged.length}})
+       </div>
+          <div class="collapsible-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Имя</th>
+            <th>Был логин</th>
+            <th>Стал логин</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#each subscriberschanges.loginSubChanged}}
+          <tr>
+            <th>{{nameSub}}</th>
+            <th>{{oldLoginSub}}</th>
+            <th>{{newLoginSub}}</th>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+          </div>
+        </li>
+      </ul>
+      {{/if}}
+      
+       {{#if subscriberschanges.added.length}}
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header">
+            Добавивщиеся (всего:{{subscriberschanges.added.length}}) </div>
+          <div class="collapsible-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Логин</th>
+            <th>Имя</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#each subscriberschanges.added}}
+          <tr>
+            <th>{{loginSub}}</th>
+            <th>{{nameSub}}</th>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+          </div>
+        </li>
+      </ul>
+      {{/if}}
+      
+       {{#if subscriberschanges.removed.length}}
+         <ul class="collapsible">
+        <li>
+          <div class="collapsible-header">
+            Удаливщиеся (всего:{{subscriberschanges.removed.length}})</div>
+          <div class="collapsible-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Логин</th>
+            <th>Имя</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#each subscriberschanges.removed}}
+          <tr>
+            <th>{{loginSub}}</th>
+            <th>{{nameSub}}</th>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+          </div>
+        </li>
+      </ul>
+      {{/if}} 
+    </div>
+    {{/each}} {{else}}
+    <p>Изменений подписчиков пока нет</p>
+    {{/if}}
+  </li>
+</ul>
