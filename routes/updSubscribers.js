@@ -60,9 +60,7 @@ function parseHtmlToSubscribers(codeSub) {
   const document = dom.window.document;
 
   const logins = [];
-  const divlogins = document.querySelectorAll(
-    'div.x1rg5ohu > div > a > div > div > span'
-  );
+  const divlogins = document.querySelectorAll('span._aaco');
   divlogins.forEach((span, index) => {
     logins.push(span.textContent.trim());
   });
@@ -71,6 +69,9 @@ function parseHtmlToSubscribers(codeSub) {
   divNames.forEach((div, index) => {
     names.push(div.textContent.trim());
   });
+
+  // console.log('logins.length:', logins.length);
+  // console.log('names.length:', names.length);
 
   const newSubscribers = []; // Массив для хранения пользователей
 
